@@ -10,13 +10,9 @@ namespace Fdo.Contato.Vistoria.ViewModels
         public IVehicle Vehicle => DependencyService.Get<IVehicle>();
         public IAppSettings AppSettings => DependencyService.Get<IAppSettings>();
 
-        private string _title;
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get => _title;
             set
             {
                 if (_title != value)
@@ -26,6 +22,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
                 }
             }
         }
+        private string _title { get; set; }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
