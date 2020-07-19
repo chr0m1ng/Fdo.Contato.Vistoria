@@ -24,6 +24,7 @@ namespace Fdo.Contato.Vistoria.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+            DIPS.Xamarin.UI.iOS.Library.Initialize();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
