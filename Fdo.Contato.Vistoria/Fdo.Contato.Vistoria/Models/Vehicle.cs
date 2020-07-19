@@ -7,6 +7,7 @@ namespace Fdo.Contato.Vistoria.Models
         public Vehicle()
         {
             Images = new ExtendedObservableCollection<VehicleImage>();
+            Plate = string.Empty;
         }
 
         private string _plate { get; set; }
