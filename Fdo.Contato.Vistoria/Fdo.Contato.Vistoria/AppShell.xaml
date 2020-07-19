@@ -34,8 +34,8 @@
         <Tab Title="Vistoria" Icon="car.png">
             <ShellContent ContentTemplate="{DataTemplate local:NewVehiclePage}" />
         </Tab>
-        <Tab Title="Configurações" Icon="tab_about.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+        <Tab Title="Configurações" Icon="settings.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />
         </Tab>
     </TabBar>
 
