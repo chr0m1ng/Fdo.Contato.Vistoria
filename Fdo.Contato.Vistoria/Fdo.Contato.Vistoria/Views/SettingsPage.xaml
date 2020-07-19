@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Fdo.Contato.Vistoria.Views.SettingsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Spacing="10"
+                     Padding="20"
+                     VerticalOptions="CenterAndExpand">
+            <Label FontSize="22">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Host Name" 
+                                  FontAttributes="Bold" 
+                                  FontSize="22"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="HostNameEntry"
+                   Text="{Binding HostNameEntry}" 
+                   Keyboard="Url"
+                   FlowDirection="LeftToRight"/>
+            <Label FontSize="22">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Auth Key" 
+                                  FontAttributes="Bold" 
+                                  FontSize="22"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry x:Name="AuthKeyEntry" 
+                   Text="{Binding AuthKeyEntry}"
+                   Keyboard="Url"
+                   FlowDirection="LeftToRight"/>
+            <Button Margin="30,10,30,0" 
+                    Text="Salvar"
+                    Command="{Binding SaveSettingsCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

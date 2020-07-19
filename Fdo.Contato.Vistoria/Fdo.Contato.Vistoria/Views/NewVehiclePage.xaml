@@ -6,25 +6,42 @@
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.NewVehiclePage"
              Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
                      VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand"
                      Padding="50"
                      Spacing="20">
-            <Label x:Name="PlateLabel" 
-                   Text="Placa" 
-                   FontSize="Title" 
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"/>
+            <Label FontSize="50"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Placa" FontAttributes="Bold" FontSize="40" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <Entry x:Name="PlateEntry" 
                    Text="{Binding Vehicle.Plate}"
+                   IsTextPredictionEnabled="False"
+                   FontSize="40"
                    TextChanged="PlateEntryTextChangedAsync"
                    MaxLength="8"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    Placeholder="AAA-0A00"/>
             <Button Text="Criar Pasta"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
                     Command="{Binding OpenVehiclePageCommand}"/>
         </StackLayout>
     </ContentPage.Content>
