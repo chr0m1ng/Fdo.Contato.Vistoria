@@ -23,7 +23,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private async void OpenVehiclePageAsync()
         {
-            if (await Vehicle.Plate.IsPlateAsync())
+            if (Vehicle.Plate.IsPlate())
             {
                 await _navigation.PushAsync(new VehiclePage());
             }
