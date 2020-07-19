@@ -30,7 +30,7 @@ namespace Fdo.Contato.Vistoria.Services
 
             var medias = await CrossMedia.Current.PickPhotosAsync(pickMediaOptions, multiPickerOptions);
 
-            if (medias == null)
+            if (medias is null)
             {
                 return null;
             }
@@ -49,7 +49,7 @@ namespace Fdo.Contato.Vistoria.Services
 
             var media = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
 
-            if (media == null)
+            if (media is null)
             {
                 return null;
             }

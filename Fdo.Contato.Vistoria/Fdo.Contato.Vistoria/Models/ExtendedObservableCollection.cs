@@ -11,8 +11,8 @@ namespace Fdo.Contato.Vistoria.Models
             foreach (var item in items)
             {
                 Add(item);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
             }
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
         }
     }
 }

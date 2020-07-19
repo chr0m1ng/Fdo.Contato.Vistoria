@@ -6,7 +6,8 @@
              xmlns:dxui="http://dips.xamarin.ui.com"
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.VehiclePage"
-             Title="{Binding Title}" IsTabStop="False">
+             Title="{Binding Title}" IsTabStop="False"
+             x:Name="ThisVehiclePage">
     <dxui:ModalityLayout x:Name="ModalityLayout"
                          BackgroundColor="WhiteSmoke">
         <dxui:ModalityLayout.Behaviors>
@@ -69,6 +70,7 @@
                                 </Trigger>
                             </ProgressBar.Triggers>
                         </ProgressBar>
+
                         <Image WidthRequest="30"
                                VerticalOptions="FillAndExpand"
                                HorizontalOptions="EndAndExpand"
@@ -78,12 +80,14 @@
                                 <DataTrigger TargetType="Image"
                                              Binding="{Binding Source={x:Reference UploadProgressBar}, Path=Progress}"
                                              Value="1">
-                                    <Setter Property="IsVisible" Value="True"/>
+                                    <Setter Property="IsVisible" 
+                                            Value="True"/>
                                 </DataTrigger>
                             </Image.Triggers>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                      Tapped="TappedImageAsync"/>
+                                                      Command="{Binding Path=BindingContext.RetryUploadCommand, Source={x:Reference ThisVehiclePage}}"
+                                                      CommandParameter="{Binding .}"/>
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>

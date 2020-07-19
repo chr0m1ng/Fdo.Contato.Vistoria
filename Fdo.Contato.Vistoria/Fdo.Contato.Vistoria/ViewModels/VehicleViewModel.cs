@@ -1,4 +1,5 @@
-﻿using Fdo.Contato.Vistoria.Services.Interfaces;
+﻿using Fdo.Contato.Vistoria.Models;
+using Fdo.Contato.Vistoria.Services.Interfaces;
 using Plugin.FileUploader;
 using Plugin.FileUploader.Abstractions;
 using System.Linq;
@@ -9,11 +10,9 @@ namespace Fdo.Contato.Vistoria.ViewModels
 {
     public class VehicleViewModel : BaseViewModel
     {
-        private string SUCCESS_ICON = "successicon.png";
-        private string ERROR_ICON = "erroricon.png";
-
         public ICommand AddCameraPhotoCommand { get; }
         public ICommand AddGalleryPhotoCommand { get; }
+        public ICommand RetryUploadCommand { get; }
 
         private IVehicleCameraService CameraService => DependencyService.Get<IVehicleCameraService>();
         private IVehicleImageUploadService UploadService => DependencyService.Get<IVehicleImageUploadService>();
@@ -26,6 +25,8 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
             AddCameraPhotoCommand = new Command(AddCameraPhotoAsync);
             AddGalleryPhotoCommand = new Command(AddGalleryPhotoAsync);
+            RetryUploadCommand = new Command(RetryUploadPhotoAsync);
+
             CrossFileUploader.Current.FileUploadProgress += UpdateFileUploadProgressAsync;
             CrossFileUploader.Current.FileUploadCompleted += UpdateIconUploadCompleted;
             CrossFileUploader.Current.FileUploadError += UpdateIconUploadError;
@@ -48,12 +49,12 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private void UpdateIconUploadCompleted(object sender, FileUploadResponse e)
         {
-            UpdateImagesIconStatus(e.Tag, SUCCESS_ICON);
+            UpdateImagesIconStatus(e.Tag, Constants.SUCCESS_ICON);
         }
 
         private void UpdateIconUploadError(object sender, FileUploadResponse e)
         {
-            UpdateImagesIconStatus(e.Tag, ERROR_ICON);
+            UpdateImagesIconStatus(e.Tag, Constants.ERROR_ICON);
         }
 
         private void UpdateImagesIconStatus(string tag, string icon)
@@ -67,7 +68,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
         private async void AddCameraPhotoAsync()
         {
             var photo = await CameraService.TakePhotoAsync(Vehicle.Plate);
-            if (photo == null)
+            if (photo is null)
             {
                 return;
             }
@@ -78,12 +79,28 @@ namespace Fdo.Contato.Vistoria.ViewModels
         private async void AddGalleryPhotoAsync()
         {
             var photos = await CameraService.GetGalleryVehiclePhotosAsync();
-            if (photos == null)
+            if (photos is null)
             {
                 return;
             }
             Vehicle.Images.AddRange(photos);
             await UploadService.UploadImagesAsync(photos);
+        }
+
+        private async void RetryUploadPhotoAsync(object obj)
+        {
+            var vehicleImage = obj as VehicleImage;
+            if (vehicleImage is null)
+            {
+                return;
+            }
+            var response = await Application.Current.MainPage.DisplayAlert("Enviar novamente", $"Deseja reenviar a imagem {vehicleImage.Name}?", "sim", "não");
+            if (response)
+            {
+                vehicleImage.StatusImage = string.Empty;
+                vehicleImage.UploadProgress = default;
+                await UploadService.UploadImageAsync(vehicleImage);
+            }
         }
     }
 }

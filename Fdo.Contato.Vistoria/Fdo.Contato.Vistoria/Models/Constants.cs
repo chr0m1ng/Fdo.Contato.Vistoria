@@ -8,5 +8,7 @@
         public const string SETTINGS_AUTH_KEY = "apikey";
         public const string SETTINGS_HOST_DEFAULT_VALUE = "http://192.168.0.16:5000";
         public const string SETTINGS_AUTH_DEFAULT_VALUE = "padrao";
+        public const string SUCCESS_ICON = "successicon.png";
+        public const string ERROR_ICON = "erroricon.png";
     }
 }
