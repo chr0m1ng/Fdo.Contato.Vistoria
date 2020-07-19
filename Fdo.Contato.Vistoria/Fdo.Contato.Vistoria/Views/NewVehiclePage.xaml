@@ -42,7 +42,8 @@
             <Button Text="Criar Pasta"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
-                    Command="{Binding OpenVehiclePageCommand}"/>
+                    Command="{Binding OpenVehiclePageCommand}">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

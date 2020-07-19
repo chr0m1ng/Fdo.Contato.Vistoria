@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
+using Plugin.FileUploader;
+using System;
 using UIKit;
 
 namespace Fdo.Contato.Vistoria.iOS
@@ -28,6 +26,11 @@ namespace Fdo.Contato.Vistoria.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override void HandleEventsForBackgroundUrl(UIApplication application, string sessionIdentifier, Action completionHandler)
+        {
+            FileUploadManager.UrlSessionCompletion = completionHandler;
         }
     }
 }

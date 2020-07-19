@@ -12,6 +12,7 @@ namespace Fdo.Contato.Vistoria.Views
         public VehiclePage()
         {
             InitializeComponent();
+
             BindingContext = new VehicleViewModel();
         }
 

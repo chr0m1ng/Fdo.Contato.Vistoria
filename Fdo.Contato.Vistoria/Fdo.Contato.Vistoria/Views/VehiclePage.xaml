@@ -6,7 +6,7 @@
              xmlns:dxui="http://dips.xamarin.ui.com"
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.VehiclePage"
-             Title="{Binding Title}">
+             Title="{Binding Title}" IsTabStop="False">
     <dxui:ModalityLayout x:Name="ModalityLayout"
                          BackgroundColor="WhiteSmoke">
         <dxui:ModalityLayout.Behaviors>
@@ -33,8 +33,8 @@
         </dxui:ModalityLayout.Behaviors>
 
 
-        <CollectionView x:Name="ItemsCollectionView"
-            ItemsSource="{Binding Vehicle.Images}">
+        <CollectionView x:Name="VehicleImagesCollectionView"
+                        ItemsSource="{Binding Vehicle.Images}">
             <d:CollectionView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>IMG01</x:String>
@@ -44,19 +44,48 @@
             </d:CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10">
+                    <StackLayout Padding="10"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Name}" 
                             d:Text="{Binding .}"
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" >
                             <Label.GestureRecognizers>
-
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="TappedImageAsync"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TappedImageAsync"></TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
+                        <ProgressBar x:Name="UploadProgressBar"
+                                     Progress="{Binding UploadProgress}"
+                                     HorizontalOptions="EndAndExpand">
+                            <ProgressBar.Triggers>
+                                <Trigger TargetType="ProgressBar"
+                                         Property="Progress"
+                                         Value="1">
+                                    <Setter Property="IsVisible"
+                                            Value="False"/>
+                                </Trigger>
+                            </ProgressBar.Triggers>
+                        </ProgressBar>
+                        <Image WidthRequest="30"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="EndAndExpand"
+                               Source="{Binding StatusImage}"
+                               IsVisible="False">
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding Source={x:Reference UploadProgressBar}, Path=Progress}"
+                                             Value="1">
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger>
+                            </Image.Triggers>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Tapped="TappedImageAsync"/>
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

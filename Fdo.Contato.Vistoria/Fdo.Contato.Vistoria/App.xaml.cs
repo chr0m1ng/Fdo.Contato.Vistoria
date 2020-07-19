@@ -3,6 +3,7 @@ using Fdo.Contato.Vistoria.Models;
 using Fdo.Contato.Vistoria.Models.Interfaces;
 using Fdo.Contato.Vistoria.Services;
 using Fdo.Contato.Vistoria.Services.Interfaces;
+using Fdo.Contato.Vistoria.ViewModels;
 using Plugin.Media;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Fdo.Contato.Vistoria
             DependencyService.RegisterSingleton<IVehicleCameraService>(new VehicleCameraService());
             DependencyService.RegisterSingleton<IVehicle>(new Vehicle());
             DependencyService.RegisterSingleton<IAppSettings>(new AppSettings());
+            DependencyService.RegisterSingleton<IVehicleImageUploadService>(new VehicleImageUploadService());
         }
 
         protected override async void OnStart()
