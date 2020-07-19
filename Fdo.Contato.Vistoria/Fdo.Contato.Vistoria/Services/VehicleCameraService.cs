@@ -3,6 +3,7 @@ using Fdo.Contato.Vistoria.Models;
 using Fdo.Contato.Vistoria.Services.Interfaces;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace Fdo.Contato.Vistoria.Services
             {
                 return null;
             }
-            return medias.Select(m => new VehicleImage() { Image = m, Name = m.Path.GetFileName() });
+            var tag = Guid.NewGuid();
+            return medias.Select(m => new VehicleImage(tag) { Image = m, Name = m.Path.GetFileName() });
         }
 
         public async Task<VehicleImage> TakePhotoAsync(string plate)
