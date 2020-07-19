@@ -6,6 +6,7 @@ using Plugin.Media.Abstractions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Fdo.Contato.Vistoria.Services
 {
@@ -51,6 +52,16 @@ namespace Fdo.Contato.Vistoria.Services
                 return null;
             }
             return new VehicleImage() { Name = media.Path.GetFileName(), Image = media };
+        }
+
+        public static async Task<bool> IsCameraAvailableAsync()
+        {
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sem Camera", "Não foi detectada nenhuma camera no dispositivo", "ok");
+                return false;
+            }
+            return true;
         }
     }
 }
