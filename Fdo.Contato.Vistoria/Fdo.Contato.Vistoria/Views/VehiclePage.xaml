@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxui="http://dips.xamarin.ui.com"
+             mc:Ignorable="d"
+             x:Class="Fdo.Contato.Vistoria.Views.VehiclePage"
+             Title="{Binding Title}">
+    <dxui:ModalityLayout x:Name="ModalityLayout"
+                         BackgroundColor="WhiteSmoke">
+        <dxui:ModalityLayout.Behaviors>
+            <dxui:FloatingActionMenuBehaviour ExpandButtonFontFamily="FloatingButtonIconsFont"
+                                              Size="60"
+                                              ExpandButtonBackgroundColor="Green"
+                                              ExpandButtonText=""
+                                              ExpandButtonFontSize="25"
+                                              XPosition=".9"
+                                              YPosition=".95"
+                                              CloseOnOverlayTapped="True">
+                <dxui:MenuButton FontFamily="FloatingButtonIconsFont"
+                                 FontSize="25"
+                                 Text=""
+                                 Command="{Binding AddCameraPhotoCommand}"
+                                 Title="Abrir camera">
+                </dxui:MenuButton>
+                <dxui:MenuButton FontFamily="FloatingButtonIconsFont"
+                                 FontSize="25"
+                                 Text=""
+                                 Title="Abrir galeria"
+                                 Command="{Binding AddGalleryPhotoCommand}"/>
+            </dxui:FloatingActionMenuBehaviour>
+        </dxui:ModalityLayout.Behaviors>
+
+
+        <CollectionView x:Name="ItemsCollectionView"
+            ItemsSource="{Binding Vehicle.Images}">
+            <d:CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>IMG01</x:String>
+                    <x:String>IMG02</x:String>
+                    <x:String>IMG03</x:String>
+                </x:Array>
+            </d:CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Name}" 
+                            d:Text="{Binding .}"
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" >
+                            <Label.GestureRecognizers>
+
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TappedImageAsync"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+    </dxui:ModalityLayout>
+</ContentPage>
