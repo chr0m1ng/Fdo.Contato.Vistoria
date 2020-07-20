@@ -50,7 +50,9 @@
                                  Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <ffimageloading:CachedImage Source="{Binding Image.Path}"
+                            <ffimageloading:CachedImage Source="{Binding Image.AlbumPath}"
+                                                        LoadingPlaceholder="loadingicon.png"
+                                                        ErrorPlaceholder="erroricon.png"
                                                         WidthRequest="30"
                                                         DownsampleToViewSize="True"/>
                             <Label Text="{Binding Name}" 

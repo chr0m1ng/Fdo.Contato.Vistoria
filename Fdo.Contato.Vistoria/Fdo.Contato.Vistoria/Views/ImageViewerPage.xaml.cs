@@ -16,7 +16,7 @@ namespace Fdo.Contato.Vistoria.Views
             InitializeComponent();
 
             ImageViewerViewModel.Title = vehicleImage.Name;
-            ImageViewerViewModel.ImageSource = vehicleImage.Image.Path;
+            ImageViewerViewModel.ImageSource = vehicleImage.Image.AlbumPath;
             BindingContext = ImageViewerViewModel;
         }
     }

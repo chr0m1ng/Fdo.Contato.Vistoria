@@ -35,6 +35,10 @@ namespace Fdo.Contato.Vistoria.Services
                 return null;
             }
             var tag = Guid.NewGuid();
+            foreach(var media in medias)
+            {
+                media.AlbumPath = media.Path;
+            }
             return medias.Select(m => new VehicleImage(tag) { Image = m, Name = m.Path.GetFileName() });
         }
 

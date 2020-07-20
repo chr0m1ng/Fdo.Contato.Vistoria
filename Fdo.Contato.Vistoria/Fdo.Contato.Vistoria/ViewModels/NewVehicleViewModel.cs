@@ -9,6 +9,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
     public class NewVehicleViewModel : BaseViewModel
     {
         public ICommand OpenVehiclePageCommand { get; }
+        public ICommand PlateEntryChangedCommand { get; }
 
         private INavigation Navigation => DependencyService.Get<INavigation>();
 
@@ -17,6 +18,20 @@ namespace Fdo.Contato.Vistoria.ViewModels
             Title = Constants.MAIN_TITLE;
 
             OpenVehiclePageCommand = new Command(OpenVehiclePageAsync);
+            PlateEntryChangedCommand = new Command(PlateEntryChangedAsync);
+        }
+
+        private async void PlateEntryChangedAsync(object obj)
+        {
+            var entryPlate = obj as Entry;
+            if (entryPlate is null)
+            {
+                return;
+            }
+            if (entryPlate.Text.Length.Equals(entryPlate.MaxLength))
+            {
+                await Device.InvokeOnMainThreadAsync(entryPlate.Unfocus);
+            }
         }
 
         private async void OpenVehiclePageAsync()

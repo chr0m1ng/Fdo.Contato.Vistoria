@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.NewVehiclePage"
              Title="{Binding Title}">
@@ -15,12 +17,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
-                     VerticalOptions="CenterAndExpand"
-                     HorizontalOptions="CenterAndExpand"
-                     Padding="50"
-                     Spacing="20">
+                     BackgroundColor="AliceBlue">
             <Label FontSize="50"
-                   HorizontalOptions="CenterAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center">
                 <Label.FormattedText>
                     <FormattedString>
@@ -30,16 +30,39 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Entry x:Name="PlateEntry" 
-                   Text="{Binding Vehicle.Plate}"
-                   IsTextPredictionEnabled="False"
-                   FontSize="40"
-                   TextChanged="PlateEntryTextChangedAsync"
-                   MaxLength="8"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   Placeholder="AAA-0A00"/>
-            <Button Text="Criar Pasta"
+            <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                            AbsoluteLayout.LayoutFlags="All" 
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            DownsampleToViewSize="True"
+                                            Source="templateplaca.png"/>
+                <Entry x:Name="PlateEntry" 
+                       Text="{Binding Vehicle.Plate}"
+                       IsTextPredictionEnabled="False"
+                       FontSize="50"
+                       MaxLength="7"
+                       AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                       AbsoluteLayout.LayoutFlags="All" 
+                       Margin="0, 25, 0, 0"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="Center"
+                       FontFamily="MercosulFont"
+                       Placeholder="AAA0A00">
+                    <Entry.Behaviors>
+                        <behaviors:EventHandlerBehavior EventName="TextChanged">
+                            <behaviors:ActionCollection>
+                                <behaviors:InvokeCommandAction Command="{Binding PlateEntryChangedCommand}" CommandParameter="{Binding Source={x:Reference PlateEntry}, Path=.}" />
+                            </behaviors:ActionCollection>
+                        </behaviors:EventHandlerBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+            </AbsoluteLayout>
+            <Button HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Margin="30, 0, 30, 0"
+                    Text="Criar Pasta"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
                     Command="{Binding OpenVehiclePageCommand}">

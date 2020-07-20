@@ -2,9 +2,12 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Fdo.Contato.Vistoria.Droid.Extensions;
 using FFImageLoading.Forms.Platform;
 using Java.Util.Concurrent;
 using Plugin.FileUploader;
+using System.IO;
+using System.Linq;
 
 namespace Fdo.Contato.Vistoria.Droid
 {
@@ -33,6 +36,13 @@ namespace Fdo.Contato.Vistoria.Droid
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnDestroy()
+        {
+            Application.Context.GetExternalFilesDir("Pictures").Path.DeleteDirectoryIfExists();
+            Application.Context.GetExternalCacheDirs().FirstOrDefault()?.Path.DeleteDirectoryIfExists();
+            base.OnDestroy();
         }
     }
 }

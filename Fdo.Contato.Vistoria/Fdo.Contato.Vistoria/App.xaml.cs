@@ -11,6 +11,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: ExportFont("fontello.ttf", Alias = "FloatingButtonIconsFont")]
+[assembly: ExportFont("fefont.ttf", Alias = "MercosulFont")]
 namespace Fdo.Contato.Vistoria
 {
     public partial class App : Application
