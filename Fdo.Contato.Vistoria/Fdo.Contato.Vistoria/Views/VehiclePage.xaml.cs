@@ -1,6 +1,4 @@
-﻿using Fdo.Contato.Vistoria.Models;
-using Fdo.Contato.Vistoria.ViewModels;
-using System;
+﻿using Fdo.Contato.Vistoria.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,13 +12,6 @@ namespace Fdo.Contato.Vistoria.Views
             InitializeComponent();
 
             BindingContext = new VehicleViewModel();
-        }
-
-        private async void TappedImageAsync(object sender, EventArgs e)
-        {
-            var layout = sender as BindableObject;
-            var image = layout.BindingContext as VehicleImage;
-            await DisplayAlert("Teste", image?.Name, "ok");
         }
     }
 }

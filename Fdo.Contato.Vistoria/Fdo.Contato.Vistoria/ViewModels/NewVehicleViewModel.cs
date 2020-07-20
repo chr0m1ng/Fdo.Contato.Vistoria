@@ -10,12 +10,10 @@ namespace Fdo.Contato.Vistoria.ViewModels
     {
         public ICommand OpenVehiclePageCommand { get; }
 
-        private readonly INavigation _navigation;
+        private INavigation Navigation => DependencyService.Get<INavigation>();
 
-        public NewVehicleViewModel(INavigation navigation)
+        public NewVehicleViewModel()
         {
-            _navigation = navigation;
-
             Title = Constants.MAIN_TITLE;
 
             OpenVehiclePageCommand = new Command(OpenVehiclePageAsync);
@@ -25,7 +23,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
         {
             if (Vehicle.Plate.IsPlate())
             {
-                await _navigation.PushAsync(new VehiclePage());
+                await Navigation.PushAsync(new VehiclePage());
             }
             else
             {

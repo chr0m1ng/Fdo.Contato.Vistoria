@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:pinch="clr-namespace:Xamarin.Forms.PinchZoomImage;assembly=Xamarin.Forms.PinchZoomImage" 
+             mc:Ignorable="d"
+             x:Class="Fdo.Contato.Vistoria.Views.ImageViewerPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     Spacing="0"
+                     Padding="0">
+            <pinch:PinchZoom HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+                <pinch:PinchZoom.Content>
+                    <ffimageloading:CachedImage VerticalOptions="FillAndExpand"
+                                                HorizontalOptions="FillAndExpand"
+                                                DownsampleToViewSize="True"
+                                                LoadingPlaceholder="loadingicon.png"
+                                                ErrorPlaceholder="erroricon.png"
+                                                Source="{Binding ImageSource}"/>
+                </pinch:PinchZoom.Content>
+            </pinch:PinchZoom>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

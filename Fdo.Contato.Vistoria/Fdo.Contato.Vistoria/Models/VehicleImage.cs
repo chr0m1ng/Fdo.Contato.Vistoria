@@ -23,7 +23,7 @@ namespace Fdo.Contato.Vistoria.Models
 
         public string Tag { get; set; }
 
-        public double UploadProgress 
+        public double UploadProgress
         {
             get => _uploadProgress;
             set
@@ -49,6 +49,27 @@ namespace Fdo.Contato.Vistoria.Models
                     OnPropertyChanged(nameof(StatusImage));
                 }
             }
+        }
+
+        private bool _uploadError { get; set; }
+        public bool UploadError
+        {
+            get => _uploadError;
+            set
+            {
+                if (_uploadError != value)
+                {
+                    _uploadError = value;
+                    OnPropertyChanged(nameof(UploadError));
+                }
+            }
+        }
+
+        public void PrepareToRetryUpload()
+        {
+            StatusImage = string.Empty;
+            UploadProgress = default;
+            UploadError = false;
         }
 
         #region INotifyPropertyChanged

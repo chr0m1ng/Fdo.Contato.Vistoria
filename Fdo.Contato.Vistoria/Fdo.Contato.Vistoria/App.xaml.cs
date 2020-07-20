@@ -20,19 +20,21 @@ namespace Fdo.Contato.Vistoria
         {
             InitializeComponent();
 
-            InjectDependencies();
-
             Library.Initialize();
 
             MainPage = new AppShell();
+            
+            InjectDependencies();
         }
 
         private void InjectDependencies()
         {
+            DependencyService.RegisterSingleton(new ImageViewerViewModel());
             DependencyService.RegisterSingleton<IVehicleCameraService>(new VehicleCameraService());
             DependencyService.RegisterSingleton<IVehicle>(new Vehicle());
             DependencyService.RegisterSingleton<IAppSettings>(new AppSettings());
             DependencyService.RegisterSingleton<IVehicleImageUploadService>(new VehicleImageUploadService());
+            DependencyService.RegisterSingleton(MainPage.Navigation);
         }
 
         protected override async void OnStart()

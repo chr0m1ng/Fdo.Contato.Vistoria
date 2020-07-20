@@ -16,7 +16,7 @@ namespace Fdo.Contato.Vistoria.Views
 
             PlateEntry.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeCharacter);
 
-            BindingContext = new NewVehicleViewModel(Navigation);
+            BindingContext = new NewVehicleViewModel();
         }
 
         private async void PlateEntryTextChangedAsync(object sender, TextChangedEventArgs e)

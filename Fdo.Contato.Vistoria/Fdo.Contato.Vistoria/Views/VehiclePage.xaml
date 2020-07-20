@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:dxui="http://dips.xamarin.ui.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.VehiclePage"
              Title="{Binding Title}" IsTabStop="False"
@@ -48,16 +49,22 @@
                     <StackLayout Padding="10"
                                  Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand">
-                        <Label Text="{Binding Name}" 
-                            d:Text="{Binding .}"
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" >
-                            <Label.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal">
+                            <ffimageloading:CachedImage Source="{Binding Image.Path}"
+                                                        WidthRequest="30"
+                                                        DownsampleToViewSize="True"/>
+                            <Label Text="{Binding Name}" 
+                                d:Text="{Binding .}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" >
+                            </Label>
+                            <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                      Tapped="TappedImageAsync"/>
-                            </Label.GestureRecognizers>
-                        </Label>
+                                                        Command="{Binding Path=BindingContext.OpenImageCommand, Source={x:Reference ThisVehiclePage}}"
+                                                        CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
                         <ProgressBar x:Name="UploadProgressBar"
                                      Progress="{Binding UploadProgress}"
                                      HorizontalOptions="EndAndExpand">
@@ -68,6 +75,12 @@
                                     <Setter Property="IsVisible"
                                             Value="False"/>
                                 </Trigger>
+                                <DataTrigger TargetType="ProgressBar"
+                                             Binding="{Binding UploadError}"
+                                             Value="True">
+                                    <Setter Property="IsVisible"
+                                            Value="False"/>
+                                </DataTrigger>
                             </ProgressBar.Triggers>
                         </ProgressBar>
 
@@ -78,8 +91,8 @@
                                IsVisible="False">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={x:Reference UploadProgressBar}, Path=Progress}"
-                                             Value="1">
+                                             Binding="{Binding Source={x:Reference UploadProgressBar}, Path=IsVisible}"
+                                             Value="False">
                                     <Setter Property="IsVisible" 
                                             Value="True"/>
                                 </DataTrigger>

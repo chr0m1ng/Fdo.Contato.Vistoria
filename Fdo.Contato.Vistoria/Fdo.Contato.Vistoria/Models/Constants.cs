@@ -10,5 +10,7 @@
         public const string SETTINGS_AUTH_DEFAULT_VALUE = "padrao";
         public const string SUCCESS_ICON = "successicon.png";
         public const string ERROR_ICON = "erroricon.png";
+        public const string RETRY_ALL_BUTTON = "Todas as imagens com erro";
+        public const string RETRY_ONE_BUTTON = "Somente essa";
     }
 }

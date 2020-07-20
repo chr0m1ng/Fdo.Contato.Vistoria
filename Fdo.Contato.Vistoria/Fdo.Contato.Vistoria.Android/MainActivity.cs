@@ -2,6 +2,9 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using FFImageLoading.Forms.Platform;
+using Java.Util.Concurrent;
+using Plugin.FileUploader;
 
 namespace Fdo.Contato.Vistoria.Droid
 {
@@ -19,6 +22,11 @@ namespace Fdo.Contato.Vistoria.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             DIPS.Xamarin.UI.Android.Library.Initialize();
+            CachedImageRenderer.Init(enableFastRenderer: true);
+            CachedImageRenderer.InitImageViewHandler();
+            FileUploadManager.UploadTimeoutUnit = TimeUnit.Minutes;
+            FileUploadManager.SocketUploadTimeout = 2;
+            FileUploadManager.ConnectUploadTimeout = 2;
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

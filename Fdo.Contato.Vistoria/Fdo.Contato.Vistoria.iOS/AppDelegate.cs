@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using FFImageLoading.Forms.Platform;
+using Foundation;
 using Plugin.FileUploader;
 using System;
 using UIKit;
@@ -23,6 +24,8 @@ namespace Fdo.Contato.Vistoria.iOS
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             DIPS.Xamarin.UI.iOS.Library.Initialize();
+            CachedImageRenderer.Init();
+            CachedImageRenderer.InitImageSourceHandler();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
