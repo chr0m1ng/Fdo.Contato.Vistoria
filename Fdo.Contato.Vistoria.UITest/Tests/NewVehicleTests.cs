@@ -6,7 +6,7 @@ using Xamarin.UITest;
 namespace Fdo.Contato.Vistoria.UITest.Tests
 {
     [TestFixture(Platform.Android)]
-    //[TestFixture(Platform.iOS)]
+    [TestFixture(Platform.iOS)]
     public class NewVehicleTests : BaseTestFixture
     {
         public NewVehicleTests(Platform platform) : base(platform) { }
