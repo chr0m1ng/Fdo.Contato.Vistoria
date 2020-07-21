@@ -11,16 +11,6 @@ namespace Fdo.Contato.Vistoria.UITest.Tests
     {
         public NewVehicleTests(Platform platform) : base(platform) { }
 
-        //[Test]
-        //public void Repl()
-        //{
-        //    if (TestEnvironment.IsTestCloud)
-        //    {
-        //        Assert.Ignore("Local only");
-        //    }
-        //    App.Repl();
-        //}
-
         [Test]
         [TestCase("aaaaaaa")]
         [TestCase("aaaaa23")]
