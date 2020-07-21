@@ -38,7 +38,8 @@
                                             VerticalOptions="FillAndExpand"
                                             DownsampleToViewSize="True"
                                             Source="templateplaca.png"/>
-                <Entry x:Name="PlateEntry" 
+                <Entry x:Name="PlateEntry"
+                       AutomationId="PlateEntry"
                        Text="{Binding Vehicle.Plate}"
                        IsTextPredictionEnabled="False"
                        FontSize="50"
@@ -59,7 +60,8 @@
                     </Entry.Behaviors>
                 </Entry>
             </AbsoluteLayout>
-            <Button HorizontalOptions="FillAndExpand"
+            <Button AutomationId="NewVehicleButton"
+                    HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     Margin="30, 0, 30, 0"
                     Text="Criar Pasta"

@@ -9,6 +9,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 
 [assembly: ExportFont("fontello.ttf", Alias = "FloatingButtonIconsFont")]
 [assembly: ExportFont("fefont.ttf", Alias = "MercosulFont")]
@@ -46,6 +50,7 @@ namespace Fdo.Contato.Vistoria
             {
                 Quit();
             }
+            AppCenter.Start($"android={AppCenterKeys.ANDROID_KEY}", typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
