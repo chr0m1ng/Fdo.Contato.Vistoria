@@ -12,7 +12,7 @@ namespace Fdo.Contato.Vistoria.UITest.Pages
 
         private const string FAILED_PLATE_DISPLAY_ALERT_TITLE = "Placa incorreta";
         private const string FAILED_PLATE_DISPLAY_ALERT_CANCEL = "Tentar novamente";
-        private readonly Func<AppQuery, string, string> CreateFailedPlateDisplayAlertMessage = (x, plate) => $"{plate.EnsureMaxLength(7).ToUpper()} não parece ser uma placa valida";
+        private readonly Func<string, string> CreateFailedPlateDisplayAlertMessage = plate => $"{plate.EnsureMaxLength(7).ToUpper()} não parece ser uma placa valida";
 
         private readonly Func<AppQuery, AppQuery> PlateEntry;
         private readonly Func<AppQuery, AppQuery> CreateFolderButton;
@@ -32,7 +32,7 @@ namespace Fdo.Contato.Vistoria.UITest.Pages
             CreateFolderButton = x => x.Marked(CREATE_FOLDER_ENTRY_ID);
             FailedPlateDisplayAlertTitle = x => x.Marked(FAILED_PLATE_DISPLAY_ALERT_TITLE);
             FailedPlateDisplayAlertCancel = x => x.Marked(FAILED_PLATE_DISPLAY_ALERT_CANCEL);
-            FailedPlateDisplayAlertMessage = (x, plate) => x.Marked(CreateFailedPlateDisplayAlertMessage(x, plate));
+            FailedPlateDisplayAlertMessage = (x, plate) => x.Marked(CreateFailedPlateDisplayAlertMessage(plate));
         }
 
         public NewVehiclePage EnterPlate(string plate, bool clearBefore = false)
