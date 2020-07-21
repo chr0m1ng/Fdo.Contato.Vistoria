@@ -1,5 +1,4 @@
-﻿using Fdo.Contato.Vistoria.UITest.Extensions;
-using Fdo.Contato.Vistoria.UITest.Pages;
+﻿using Fdo.Contato.Vistoria.UITest.Pages;
 using NUnit.Framework;
 using Xamarin.UITest;
 
