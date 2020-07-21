@@ -39,18 +39,13 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewVehicleTests.cs" />
-    <Compile Include="AppInitializer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Fdo.Contato.Vistoria\Fdo.Contato.Vistoria.Android\Fdo.Contato.Vistoria.Android.csproj">
-      <Project>{5b98f26b-3e30-49b4-a434-96687f8dc6f1}</Project>
-      <Name>Fdo.Contato.Vistoria.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fdo.Contato.Vistoria\Fdo.Contato.Vistoria.iOS\Fdo.Contato.Vistoria.iOS.csproj">
-      <Project>{e041819c-46bf-4465-a35b-9f31f28796df}</Project>
-      <Name>Fdo.Contato.Vistoria.iOS</Name>
-    </ProjectReference>
+    <Compile Include="AppManager.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Tests\BaseTestFixture.cs" />
+    <Compile Include="Tests\NewVehicleTests.cs" />
+    <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\NewVehiclePage.cs" />
+    <Compile Include="PlatformQuery.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
