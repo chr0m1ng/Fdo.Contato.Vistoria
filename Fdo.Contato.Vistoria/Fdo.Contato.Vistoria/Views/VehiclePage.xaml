@@ -8,7 +8,8 @@
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.VehiclePage"
              Title="{Binding Title}" IsTabStop="False"
-             x:Name="ThisVehiclePage">
+             x:Name="ThisVehiclePage"
+             AutomationId="VehiclePage">
     <dxui:ModalityLayout x:Name="ModalityLayout"
                          BackgroundColor="WhiteSmoke">
         <dxui:ModalityLayout.Behaviors>

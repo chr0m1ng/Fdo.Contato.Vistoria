@@ -7,6 +7,7 @@
              xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
              mc:Ignorable="d"
              x:Class="Fdo.Contato.Vistoria.Views.NewVehiclePage"
+             AutomationId="NewVehiclePage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -60,7 +61,7 @@
                     </Entry.Behaviors>
                 </Entry>
             </AbsoluteLayout>
-            <Button AutomationId="NewVehicleButton"
+            <Button AutomationId="CreateFolderButton"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="CenterAndExpand"
                     Margin="30, 0, 30, 0"
