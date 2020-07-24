@@ -22,6 +22,7 @@
                                               YPosition=".95"
                                               CloseOnOverlayTapped="True">
                 <dxui:MenuButton FontFamily="FloatingButtonIconsFont"
+                                 AutomationId="OpenCameraButton"
                                  FontSize="25"
                                  Text=""
                                  Command="{Binding AddCameraPhotoCommand}"

@@ -8,7 +8,6 @@ namespace Fdo.Contato.Vistoria.UITest.Pages
     {
         private const string PLATE_ENTRY_ID = "PlateEntry";
         private const string CREATE_FOLDER_ENTRY_ID = "CreateFolderButton";
-        private const string TRAIT_ID = "NewVehiclePage";
 
         private const string FAILED_PLATE_DISPLAY_ALERT_TITLE = "Placa incorreta";
         private const string FAILED_PLATE_DISPLAY_ALERT_CANCEL = "Tentar novamente";
@@ -22,8 +21,8 @@ namespace Fdo.Contato.Vistoria.UITest.Pages
 
         protected override PlatformQuery Trait => new PlatformQuery
         {
-            Android = x => x.Marked(TRAIT_ID),
-            IOS = x => x.Marked(TRAIT_ID)
+            Android = x => x.Marked(nameof(NewVehiclePage)),
+            IOS = x => x.Marked(nameof(NewVehiclePage))
         };
 
         public NewVehiclePage()
@@ -74,6 +73,15 @@ namespace Fdo.Contato.Vistoria.UITest.Pages
         {
             App.Tap(CreateFolderButton);
             App.Screenshot(nameof(ConfirmPlate));
+            return this;
+        }
+
+        public NewVehiclePage CreateVehicleFolder(string plate, bool clearBefore = false, TimeSpan? timeSpan = null)
+        {
+            EnterPlate(plate, clearBefore);
+            ConfirmPlate();
+            WaitForPageToLeave(timeSpan);
+            App.Screenshot(nameof(CreateVehicleFolder));
             return this;
         }
     }

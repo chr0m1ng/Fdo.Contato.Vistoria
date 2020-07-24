@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="AppManager.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Pages\VehiclePage.cs" />
     <Compile Include="Tests\BaseTestFixture.cs" />
     <Compile Include="Tests\NewVehicleTests.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\NewVehiclePage.cs" />
     <Compile Include="PlatformQuery.cs" />
+    <Compile Include="Tests\VehicleTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
