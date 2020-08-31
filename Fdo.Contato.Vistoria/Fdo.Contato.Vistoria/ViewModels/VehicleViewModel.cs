@@ -106,7 +106,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
             {
                 return;
             }
-            if(response.Equals(Constants.RETRY_ONE_BUTTON))
+            if (response.Equals(Constants.RETRY_ONE_BUTTON))
             {
                 await RetrySingleImageAsync(vehicleImage);
             }

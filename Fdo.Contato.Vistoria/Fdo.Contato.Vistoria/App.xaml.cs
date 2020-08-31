@@ -4,14 +4,14 @@ using Fdo.Contato.Vistoria.Models.Interfaces;
 using Fdo.Contato.Vistoria.Services;
 using Fdo.Contato.Vistoria.Services.Interfaces;
 using Fdo.Contato.Vistoria.ViewModels;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Plugin.Media;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 
 
 [assembly: ExportFont("fontello.ttf", Alias = "FloatingButtonIconsFont")]
@@ -28,7 +28,7 @@ namespace Fdo.Contato.Vistoria
             Library.Initialize();
 
             MainPage = new AppShell();
-            
+
             InjectDependencies();
         }
 

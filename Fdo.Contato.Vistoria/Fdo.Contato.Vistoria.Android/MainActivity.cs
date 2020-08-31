@@ -6,7 +6,6 @@ using Fdo.Contato.Vistoria.Droid.Extensions;
 using FFImageLoading.Forms.Platform;
 using Java.Util.Concurrent;
 using Plugin.FileUploader;
-using System.IO;
 using System.Linq;
 
 namespace Fdo.Contato.Vistoria.Droid

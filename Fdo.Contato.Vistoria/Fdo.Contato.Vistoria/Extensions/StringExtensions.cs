@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Fdo.Contato.Vistoria.Extensions
 {

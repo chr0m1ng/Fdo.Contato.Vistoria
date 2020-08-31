@@ -35,7 +35,7 @@ namespace Fdo.Contato.Vistoria.Services
                 return null;
             }
             var tag = Guid.NewGuid();
-            foreach(var media in medias)
+            foreach (var media in medias)
             {
                 media.AlbumPath = media.Path;
             }
