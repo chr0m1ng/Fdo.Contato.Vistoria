@@ -1,10 +1,14 @@
 ﻿using Fdo.Contato.Vistoria.Models;
+using Fdo.Contato.Vistoria.Providers;
 using Fdo.Contato.Vistoria.Services.Interfaces;
 using Fdo.Contato.Vistoria.Views;
 using Plugin.FileUploader;
 using Plugin.FileUploader.Abstractions;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -18,24 +22,30 @@ namespace Fdo.Contato.Vistoria.ViewModels
         public ICommand RetryUploadCommand { get; }
         public ICommand OpenImageCommand { get; }
 
-        private IVehicleCameraService CameraService => DependencyService.Get<IVehicleCameraService>();
-        private IVehicleImageUploadService UploadService => DependencyService.Get<IVehicleImageUploadService>();
-        private INavigation Navigation => DependencyService.Get<INavigation>();
+        private readonly IVehicleCameraService _cameraService;
+        private readonly IVehicleImageUploadService _uploadService;
+        private readonly INavigation _navigation;
 
         public VehicleViewModel()
         {
-            Vehicle.Images.Clear();
+            Device.BeginInvokeOnMainThread(() => _vehicle.Images.Clear());
 
-            Title = Vehicle.Plate;
+            Title = _vehicle.Plate;
 
             AddCameraPhotoCommand = new Command(AddCameraPhotoAsync);
             AddGalleryPhotoCommand = new Command(AddGalleryPhotoAsync);
             RetryUploadCommand = new Command(RetryUploadPhotoAsync);
             OpenImageCommand = new Command(OpenImagePreviewAsync);
 
+            _cameraService = DependencyService.Get<IVehicleCameraService>();
+            _uploadService = DependencyService.Get<IVehicleImageUploadService>();
+            _navigation = DependencyService.Get<INavigation>();
+
             CrossFileUploader.Current.FileUploadProgress += UpdateFileUploadProgressAsync;
             CrossFileUploader.Current.FileUploadCompleted += UpdateIconUploadCompleted;
             CrossFileUploader.Current.FileUploadError += UpdateIconUploadError;
+
+            Task.Run(async () => await LoadVehicleImagesAsync(CancellationToken.None));
         }
 
         ~VehicleViewModel()
@@ -47,7 +57,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private async void UpdateFileUploadProgressAsync(object sender, FileUploadProgress e)
         {
-            foreach (var image in Vehicle.Images.Where(vi => vi.Tag == e.Tag))
+            foreach (var image in _vehicle.Images.Where(vi => vi.Tag == e.Tag))
             {
                 await Device.InvokeOnMainThreadAsync(() => image.UploadProgress = e.Percentage / 100.0f);
             }
@@ -65,7 +75,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private void UpdateImagesIconStatus(string tag, string icon, bool isError = false)
         {
-            foreach (var image in Vehicle.Images.Where(vi => vi.Tag == tag))
+            foreach (var image in _vehicle.Images.Where(vi => vi.Tag == tag))
             {
                 image.UploadError = isError;
                 image.StatusImage = icon;
@@ -74,24 +84,24 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private async void AddCameraPhotoAsync()
         {
-            var photo = await CameraService.TakePhotoAsync(Vehicle.Plate);
+            var photo = await _cameraService.TakePhotoAsync(_vehicle.Plate);
             if (photo is null)
             {
                 return;
             }
-            Vehicle.Images.Add(photo);
-            await UploadService.UploadImageAsync(photo);
+            Device.BeginInvokeOnMainThread(() => _vehicle.Images.Add(photo));
+            await _uploadService.UploadImageAsync(photo);
         }
 
         private async void AddGalleryPhotoAsync()
         {
-            var photos = await CameraService.GetGalleryVehiclePhotosAsync();
+            var photos = await _cameraService.GetGalleryVehiclePhotosAsync();
             if (photos is null)
             {
                 return;
             }
-            Vehicle.Images.AddRange(photos);
-            await UploadService.UploadImagesAsync(photos);
+            Device.BeginInvokeOnMainThread(() => _vehicle.Images.AddRange(photos));
+            await _uploadService.UploadImagesAsync(photos);
         }
 
         private async void RetryUploadPhotoAsync(object obj)
@@ -120,19 +130,19 @@ namespace Fdo.Contato.Vistoria.ViewModels
         {
             vehicleImage.PrepareToRetryUpload();
             vehicleImage.Tag = Guid.NewGuid().ToString();
-            await UploadService.UploadImageAsync(vehicleImage);
+            await _uploadService.UploadImageAsync(vehicleImage);
         }
 
         private async Task RetryAllImagesAsync()
         {
-            var allImages = Vehicle.Images.Where(vi => vi.UploadError).ToList();
+            var allImages = _vehicle.Images.Where(vi => vi.UploadError).ToList();
             var tag = Guid.NewGuid().ToString();
             foreach (var image in allImages)
             {
                 image.PrepareToRetryUpload();
                 image.Tag = tag;
             }
-            await UploadService.UploadImagesAsync(allImages);
+            await _uploadService.UploadImagesAsync(allImages);
         }
 
         private async void OpenImagePreviewAsync(object obj)
@@ -142,7 +152,30 @@ namespace Fdo.Contato.Vistoria.ViewModels
             {
                 return;
             }
-            await Navigation.PushAsync(new ImageViewerPage(vehicleImage));
+            await _navigation.PushAsync(new ImageViewerPage(vehicleImage));
+        }
+
+        private async Task LoadVehicleImagesAsync(CancellationToken cancellationToken)
+        {
+            var imageUrls = await GetVehicleImagesUrlsAsync(cancellationToken);
+            var vehicleImages = imageUrls?.Select(i =>
+                new VehicleImage()
+                {
+                    Name = Path.GetFileName(i),
+                    ImageAlbumPath = i
+                }
+            );
+            if (vehicleImages != null)
+            {
+                Device.BeginInvokeOnMainThread(() => _vehicle.Images.AddRange(vehicleImages));
+            }
+        }
+
+        private async Task<IEnumerable<string>> GetVehicleImagesUrlsAsync(CancellationToken cancellationToken)
+        {
+            var vehicleImages = ContatoApiClientProvider.GetClient();
+            var images = await vehicleImages.ListVehicleImagesAsync(_vehicle.Plate, cancellationToken);
+            return images?.Select(i => $"{_appSettings.HostName}/{_vehicle.Plate}/{i}");
         }
     }
 }

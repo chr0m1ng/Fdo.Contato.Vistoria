@@ -13,14 +13,13 @@ namespace Fdo.Contato.Vistoria.Services
     {
         public async Task<FileUploadResponse> UploadImageAsync(VehicleImage vehicleImage)
         {
-            var uploadImageRequest = new UploadImagesRequest(new List<string>() { vehicleImage.Image.AlbumPath });
-            return await CrossFileUploader.Current.UploadFileAsync(uploadImageRequest.Url, uploadImageRequest.FilePathItems.ToArray(), vehicleImage.Tag, uploadImageRequest.Headers, uploadImageRequest.Parameters);
+            return await UploadImagesAsync(new List<VehicleImage>() { vehicleImage });
         }
 
         public async Task<FileUploadResponse> UploadImagesAsync(IEnumerable<VehicleImage> vehicleImages)
         {
-            var uploadImagesRequest = new UploadImagesRequest(vehicleImages.Select(vi => vi.Image.AlbumPath));
-            return await CrossFileUploader.Current.UploadFileAsync(uploadImagesRequest.Url, uploadImagesRequest.FilePathItems.ToArray(), vehicleImages.FirstOrDefault()?.Tag, uploadImagesRequest.Headers, uploadImagesRequest.Parameters);
+            var uploadImagesRequest = new UploadImagesRequest(vehicleImages.Select(vi => vi.ImageAlbumPath));
+            return await CrossFileUploader.Current.UploadFileAsync(uploadImagesRequest.Url, uploadImagesRequest.FilePathItems.ToArray(), vehicleImages.FirstOrDefault()?.Tag, uploadImagesRequest.Headers);
         }
     }
 }

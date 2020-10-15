@@ -19,8 +19,8 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private async void SaveSettingsAsync()
         {
-            AppSettings.HostName = HostNameEntry;
-            AppSettings.AuthKey = AuthKeyEntry;
+            _appSettings.HostName = HostNameEntry;
+            _appSettings.AuthKey = AuthKeyEntry;
             await Application.Current.MainPage.DisplayAlert("Salvo", "Configurações salvas com sucesso!", "ok");
         }
     }

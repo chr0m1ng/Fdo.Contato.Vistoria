@@ -11,7 +11,7 @@ namespace Fdo.Contato.Vistoria.ViewModels
         public ICommand OpenVehiclePageCommand { get; }
         public ICommand PlateEntryChangedCommand { get; }
 
-        private INavigation Navigation => DependencyService.Get<INavigation>();
+        private INavigation _navigation;
 
         public NewVehicleViewModel()
         {
@@ -19,6 +19,8 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
             OpenVehiclePageCommand = new Command(OpenVehiclePageAsync);
             PlateEntryChangedCommand = new Command(PlateEntryChangedAsync);
+
+            _navigation = DependencyService.Get<INavigation>();
         }
 
         private async void PlateEntryChangedAsync(object obj)
@@ -36,13 +38,13 @@ namespace Fdo.Contato.Vistoria.ViewModels
 
         private async void OpenVehiclePageAsync()
         {
-            if (Vehicle.Plate.IsPlate())
+            if (_vehicle.Plate.IsPlate())
             {
-                await Navigation.PushAsync(new VehiclePage());
+                await _navigation.PushAsync(new VehiclePage());
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Placa incorreta", $"{Vehicle.Plate} não parece ser uma placa valida", "Tentar novamente");
+                await Application.Current.MainPage.DisplayAlert("Placa incorreta", $"{_vehicle.Plate} não parece ser uma placa valida", "Tentar novamente");
             }
         }
     }

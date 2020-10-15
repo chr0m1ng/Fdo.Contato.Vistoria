@@ -1,5 +1,4 @@
-﻿using Plugin.Media.Abstractions;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -17,7 +16,7 @@ namespace Fdo.Contato.Vistoria.Models
             Tag = tag.ToString();
         }
 
-        public MediaFile Image { get; set; }
+        public string ImageAlbumPath { get; set; }
 
         public string Name { get; set; }
 

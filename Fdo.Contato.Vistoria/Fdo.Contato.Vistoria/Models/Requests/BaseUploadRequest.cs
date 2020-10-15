@@ -6,29 +6,25 @@ namespace Fdo.Contato.Vistoria.Models.Requests
 {
     public abstract class BaseUploadRequest
     {
-        public const string REQUEST_FILE_FIELD_NAME = "file";
-
-        private const string REQUEST_PLATE_FIELD_NAME = "placa";
+        public const string REQUEST_FILE_FIELD_NAME = "files";
         private const string REQUEST_AUTH_HEADER_NAME = "x-api-key";
 
         public string Url { get; set; }
         public Dictionary<string, string> Headers { get; set; }
-        public Dictionary<string, string> Parameters { get; set; }
 
-        private IVehicle Vehicle => DependencyService.Get<IVehicle>();
-        private IAppSettings AppSettings => DependencyService.Get<IAppSettings>();
+        private readonly IVehicle _vehicle;
+        private readonly IAppSettings _appSettings;
 
         public BaseUploadRequest()
         {
+            _vehicle = DependencyService.Get<IVehicle>();
+            _appSettings = DependencyService.Get<IAppSettings>();
+
             Headers = new Dictionary<string, string>()
             {
-                { REQUEST_AUTH_HEADER_NAME, AppSettings.AuthKey}
+                { REQUEST_AUTH_HEADER_NAME, _appSettings.AuthKey}
             };
-            Parameters = new Dictionary<string, string>()
-            {
-                { REQUEST_PLATE_FIELD_NAME, Vehicle.Plate }
-            };
-            Url = AppSettings.HostName;
+            Url = $"{_appSettings.HostName}/{_vehicle.Plate}";
         }
     }
 }

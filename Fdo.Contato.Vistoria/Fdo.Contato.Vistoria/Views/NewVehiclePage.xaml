@@ -41,7 +41,7 @@
                                             Source="templateplaca.png"/>
                 <Entry x:Name="PlateEntry"
                        AutomationId="PlateEntry"
-                       Text="{Binding Vehicle.Plate}"
+                       Text="{Binding _vehicle.Plate}"
                        IsTextPredictionEnabled="False"
                        FontSize="50"
                        MaxLength="7"

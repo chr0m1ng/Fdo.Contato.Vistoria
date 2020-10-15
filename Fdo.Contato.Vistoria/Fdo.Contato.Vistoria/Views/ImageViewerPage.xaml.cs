@@ -9,15 +9,20 @@ namespace Fdo.Contato.Vistoria.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImageViewerPage : ContentPage
     {
-        public ImageViewerViewModel ImageViewerViewModel => DependencyService.Get<ImageViewerViewModel>();
+        private readonly ImageViewerViewModel _imageViewerViewModel;
 
-        public ImageViewerPage(VehicleImage vehicleImage)
+        public ImageViewerPage()
+        {
+            _imageViewerViewModel = DependencyService.Get<ImageViewerViewModel>();
+        }
+
+        public ImageViewerPage(VehicleImage vehicleImage) : this()
         {
             InitializeComponent();
 
-            ImageViewerViewModel.Title = vehicleImage.Name;
-            ImageViewerViewModel.ImageSource = vehicleImage.Image.AlbumPath;
-            BindingContext = ImageViewerViewModel;
+            _imageViewerViewModel.Title = vehicleImage.Name;
+            _imageViewerViewModel.ImageSource = vehicleImage.ImageAlbumPath;
+            BindingContext = _imageViewerViewModel;
         }
     }
 }

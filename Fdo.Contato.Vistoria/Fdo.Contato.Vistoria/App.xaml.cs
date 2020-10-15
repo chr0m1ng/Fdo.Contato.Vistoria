@@ -34,10 +34,11 @@ namespace Fdo.Contato.Vistoria
 
         private void InjectDependencies()
         {
+            var appSettings = new AppSettings();
             DependencyService.RegisterSingleton(new ImageViewerViewModel());
             DependencyService.RegisterSingleton<IVehicleCameraService>(new VehicleCameraService());
             DependencyService.RegisterSingleton<IVehicle>(new Vehicle());
-            DependencyService.RegisterSingleton<IAppSettings>(new AppSettings());
+            DependencyService.RegisterSingleton<IAppSettings>(appSettings);
             DependencyService.RegisterSingleton<IVehicleImageUploadService>(new VehicleImageUploadService());
             DependencyService.RegisterSingleton(MainPage.Navigation);
         }

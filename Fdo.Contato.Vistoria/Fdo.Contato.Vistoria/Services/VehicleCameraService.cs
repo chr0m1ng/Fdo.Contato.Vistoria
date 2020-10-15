@@ -39,7 +39,7 @@ namespace Fdo.Contato.Vistoria.Services
             {
                 media.AlbumPath = media.Path;
             }
-            return medias.Select(m => new VehicleImage(tag) { Image = m, Name = m.Path.GetFileName() });
+            return medias.Select(m => new VehicleImage(tag) { ImageAlbumPath = m.AlbumPath, Name = m.Path.GetFileName() });
         }
 
         public async Task<VehicleImage> TakePhotoAsync(string plate)
@@ -57,7 +57,7 @@ namespace Fdo.Contato.Vistoria.Services
             {
                 return null;
             }
-            return new VehicleImage() { Name = media.Path.GetFileName(), Image = media };
+            return new VehicleImage() { Name = media.Path.GetFileName(), ImageAlbumPath = media.AlbumPath };
         }
 
         public static async Task<bool> IsCameraAvailableAsync()

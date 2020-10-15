@@ -7,8 +7,8 @@ namespace Fdo.Contato.Vistoria.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IVehicle Vehicle => DependencyService.Get<IVehicle>();
-        public IAppSettings AppSettings => DependencyService.Get<IAppSettings>();
+        public IVehicle _vehicle => DependencyService.Get<IVehicle>();
+        public IAppSettings _appSettings => DependencyService.Get<IAppSettings>();
 
         public string Title
         {
